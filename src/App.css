@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
-}
+/* App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive; /* Pixelated font */
+  background-color: #1a1a1a; /* Dark background for contrast */
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.App {
+  text-align: center;
+  width: 100%;
+}
+
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1a1a1a; /* Dark background */
+}
+
+.token-button {
+  background-color: #ff0000; /* Red background */
   color: white;
+  border: 4px solid white; /* White border for pixel effect */
+  border-radius: 0; /* No border radius for pixel effect */
+  padding: 20px 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+  font-family: 'Press Start 2P', cursive; /* Pixelated font */
+  position: relative;
+  box-shadow: 4px 4px 0 #000, 8px 8px 0 #555;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.token-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+  box-shadow: 2px 2px 0 #000, 4px 4px 0 #555;
 }
