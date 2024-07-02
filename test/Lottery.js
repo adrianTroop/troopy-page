@@ -27,11 +27,13 @@ describe("LotteryContract", ()=> {
         
         it("Checks contract balance to equal participation", async () =>{
             const contractBalance = await lotteryContract.getContractBalance();
-            console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
             expect(contractBalance).to.equal(amount);
         })
         it("Try to place a second bet", async () => {
             expect(lotteryContract.connect(user).deposit({ value: amount })).to.be.reverted;
+        })
+        it("Check that Depositer is on the list", async ()=>{
+
         })
         it("Emit deposit event", async ()=>{
             const event = result.events[0]
