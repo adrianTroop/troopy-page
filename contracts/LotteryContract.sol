@@ -1,9 +1,6 @@
-//SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
-
 //Connect wallet
     //Press Button
-    //Call your wallet to TransferFrom Wallet 10USD of ETH.
+    //Call your wallet to TransferFrom Wallet 10ETH.
     // token, user, amount, balance
     //When your deposit is done your account is added to the Participant
     //Gets lock for 1h
@@ -13,36 +10,34 @@ pragma solidity ^0.8.0;
     //Times restarts and accept deposit again.
     // One entry per wallet.
 
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+
 import "hardhat/console.sol";
 
 contract LotteryContract{
-    mapping (address => _Bet) public bets;
+        struct Depositer {
+            address userAddress;
+            uint256 amount;
+        }
+        Depositer[] public depositersList;
+        event Deposit(address indexed user, uint256 amount);
 
-    event Deposit(
-        address indexed user,
-        uint256 amountEth,
-        uint256 timestamp
-    );
+        function deposit() external payable {
+            require(msg.value > 10);
+            bool isNewDepositer = true;
+            //Only 1 entry per wallet
+            for (uint256 i = 0; i < depositersList.length; i++) {
+                if (depositersList[i].userAddress == msg.sender) {
+                    depositersList[i].amount += msg.value;
+                    isNewDepositer = false;
+                    break;
+                }
+            }
+            emit Deposit(msg.sender, msg.value);
+        }
 
-    struct _Bet {
-        address user; // User who made the order
-        uint256 amountEth; // Amount they give
-        uint256 timestamp; //When order was created
-    }
-
-    //Deposits
-    function depositEth(uint256 _amountEth) public payable{
-        // with msg.value we can get the amount of ETHER of the sender
-        //require(msg.value, "Not enough Ether");
-        bets[msg.sender] = _Bet({
-            user: msg.sender,
-            amountEth: _amountEth,
-            timestamp: block.timestamp
-        });
-        emit Deposit(
-            msg.sender,
-            _amountEth,
-            block.timestamp
-        );
-    }
+        function getContractBalance() public view returns (uint256) {
+            return address(this).balance;
+        }
 }
