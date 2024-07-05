@@ -6,7 +6,7 @@ const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), "ether")
  }
 
-describe("LotteryContract", ()=> {
+describe("LotteryContract", () => {
     let accounts, user;
     let transaction, result;
     let amount = tokens(10);
@@ -33,7 +33,9 @@ describe("LotteryContract", ()=> {
             expect(lotteryContract.connect(user).deposit({ value: amount })).to.be.reverted;
         })
         it("Check that Depositer is on the list", async ()=>{
-
+            const depositers = await lotteryContract.getDepositersList();
+            //expect(depositers.length()).to.equal(1);
+            console.log(depositers[0])
         })
         it("Emit deposit event", async ()=>{
             const event = result.events[0]
