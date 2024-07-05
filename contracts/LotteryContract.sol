@@ -16,28 +16,31 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract LotteryContract{
-        struct Depositer {
-            address userAddress;
-            uint256 amount;
-        }
-        Depositer[] public depositersList;
-        event Deposit(address indexed user, uint256 amount);
+    struct Depositer {
+        address userAddress;
+        uint256 amount;
+    }
+    Depositer[] public depositersList;
+    event Deposit(address indexed user, uint256 amount);
 
-        function deposit() external payable {
-            require(msg.value > 10);
-            bool isNewDepositer = true;
-            //Only 1 entry per wallet
-            for (uint256 i = 0; i < depositersList.length; i++) {
-                if (depositersList[i].userAddress == msg.sender) {
-                    depositersList[i].amount += msg.value;
-                    isNewDepositer = false;
-                    break;
-                }
+    function deposit() external payable {
+        require(msg.value > 10);
+        bool isNewDepositer = true;
+        //Only 1 entry per wallet
+        for (uint256 i = 0; i < depositersList.length; i++) {
+            if (depositersList[i].userAddress == msg.sender) {
+                depositersList[i].amount += msg.value;
+                isNewDepositer = false;
+                break;
             }
-            emit Deposit(msg.sender, msg.value);
         }
+        emit Deposit(msg.sender, msg.value);
+    }
 
-        function getContractBalance() public view returns (uint256) {
-            return address(this).balance;
-        }
+    function getContractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+    function getDepositersList() public view returns (Depositer[] memory) {
+        return depositersList;
+    }
 }
