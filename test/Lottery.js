@@ -1,6 +1,5 @@
 const { expect } = require("chai")
 const { ethers } = require("hardhat")
-const { result } = require("lodash")
 
 const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), "ether")
@@ -22,7 +21,6 @@ describe("LotteryContract", () => {
         transaction = await lotteryContract.connect(user).deposit({ value: amount })
         result = await transaction.wait()
     })
-    console.log(accounts)
     describe("Deposit Tokens and check balance", () =>{
         
         it("Checks contract balance to equal participation", async () =>{
@@ -34,8 +32,9 @@ describe("LotteryContract", () => {
         })
         it("Check that Depositer is on the list", async ()=>{
             const depositers = await lotteryContract.getDepositersList();
-            //expect(depositers.length()).to.equal(1);
-            console.log(depositers[0])
+            //console.log(depositers)
+            expect(depositers.length).to.equal(1);
+            expect(depositers[0].userAddress).to.equal(user.address);
         })
         it("Emit deposit event", async ()=>{
             const event = result.events[0]

@@ -2,8 +2,8 @@
     //Press Button
     //Call your wallet to TransferFrom Wallet 10ETH.
     // token, user, amount, balance
-    //When your deposit is done your account is added to the Participant
-    //Gets lock for 1h
+    //When your deposit is done your account is added to the Participant DONE
+    //Gets lock for 6h
     //When time is up the contract draws a random address from the participant array
     //Allows the person to withdraw the amount minus 5% 
     //if the person doesnt WD before the next round the next person gets both amounts. 
@@ -33,6 +33,13 @@ contract LotteryContract{
                 isNewDepositer = false;
                 break;
             }
+        }
+        // If the depositer is new, add them to the depositersList
+        if (isNewDepositer) {
+            depositersList.push(Depositer({
+                userAddress: msg.sender,
+                amount: msg.value
+            }));
         }
         emit Deposit(msg.sender, msg.value);
     }
