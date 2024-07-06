@@ -1,21 +1,24 @@
-import { useEffect, useInsertionEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ethers } from 'ethers';
 import config from '../config.json';
 import '../App.css';
+
+import { loadNetwork, loadProvider, loadAccount } from '../store/interactions';
 
 import Navbar from './NavBar';
 import Lottery from './Lottery';
 
 function App() {
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   
   const loadBlockChainData = async () => {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts'})
-    console.log(accounts[0])
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const { chainId } = await provider.getNetwork()
-    console.log(chainId)
+  
+    const provider = loadProvider(dispatch)
+    const { chainId }  = await loadNetwork(provider, dispatch)
+    console.log(provider, chainId)
+    const account = await loadAccount(provider, dispatch)
+    console.log(account, account.balance)
   }
 
   useEffect(()=>{
