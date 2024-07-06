@@ -1,18 +1,18 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  console.log(`Preparing deployment... \n`)
+    console.log(`Preparing deployment... \n`)
     //fetch contract
-    const Token = await ethers.getContractFactory("Token")
+    const Token = await ethers.getContractFactory("LotteryContract")
 
-    //const accounts = await ethers.getSigners()
+    const accounts = await ethers.getSigners()
 
-    //console.log(`Accounts fetched: \n ${accounts[0].address}\n${accounts[1].address}\n`)
+    console.log(`Accounts fetched: \n ${accounts[0].address}\n${accounts[1].address}\n`)
 
     //Deploy contracts
-    const mWETH = await Token.deploy("mWETH", "mWETH",1000000)
-    await mWETH.deployed()
-    console.log(`mWETH Deployed to: ${mWETH.address}`)
+    const lotteryContract = await Token.deploy()
+    await lotteryContract.deployed()
+    console.log(`LotteryContract Deployed to: ${lotteryContract.address}`)
 }
 
 main()

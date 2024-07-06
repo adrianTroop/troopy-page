@@ -1,0 +1,3 @@
+Deploy contract to Blockchain
+
+npx hardhat run scripts/1_deploy.js --network localhost

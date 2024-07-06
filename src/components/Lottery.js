@@ -14,7 +14,7 @@ const Lottery = () => {
                 <button className="token-button" onClick={ placeLotteryBet }>Enter Lottery</button>
                 <p>{"Deposit 10$ in ETH to participate"}</p>
                 <p>{"All the deposit will be drop to the winner every friday"}</p>
-                <p5>{"Smart Contract keep 3% of deposits"}</p5>
+                <p>{"Smart Contract keep 3% of deposits"}</p>
             <h2>Participants</h2>
             <ul>
                 <li>Bet Number 1</li>

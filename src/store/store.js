@@ -1,9 +1,21 @@
-import { createStore } from 'redux';
-import rootReducer from './reducers'; // Assuming you will create this file next
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from "redux-thunk";
+//This is what allows the chrome extension to collect the info
+import { composeWithDevTools  } from 'redux-devtools-extension';
+import { provider } from './reducers'; 
+
+const reducer = combineReducers({
+    provider
+})
+
+const initialState = {}
+
+const middleware = [thunk]
 
 const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  reducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;
