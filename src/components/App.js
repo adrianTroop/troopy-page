@@ -17,6 +17,7 @@ function App() {
     const provider = loadProvider(dispatch)
     const { chainId }  = await loadNetwork(provider, dispatch)
     const account = await loadAccount(provider, dispatch)
+    
   }
 
   useEffect(()=>{
