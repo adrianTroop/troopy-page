@@ -16,9 +16,7 @@ function App() {
   
     const provider = loadProvider(dispatch)
     const { chainId }  = await loadNetwork(provider, dispatch)
-    console.log(provider, chainId)
     const account = await loadAccount(provider, dispatch)
-    console.log(account, account.balance)
   }
 
   useEffect(()=>{

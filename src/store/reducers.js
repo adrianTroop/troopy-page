@@ -24,8 +24,10 @@ export const provider = (state = {} , action) =>{
                 ...state,
                 balance: action.balance
             }
-            
+
         default:
             return state 
     }
 }
+
+//export const lotteryContract = (st)
