@@ -1,4 +1,4 @@
-# Lottery App # In progress
+# Lottery App # ( In progress...) 
 
 Simple Lottery app based on the classic Euro millions
 
