@@ -30,4 +30,31 @@ export const provider = (state = {} , action) =>{
     }
 }
 
-//export const lotteryContract = (st)
+export const lotteryContract = (state = {}, action) => {
+    switch(action.type){
+        case 'TRANSFER_SUCCESS':
+            return{
+                ...state,
+                transaction: { 
+                    transactionType: 'Transfer',
+                    isPending: false,
+                    isSuccesful: true
+                },
+                transferInProgress: false,
+                events: [action.event, ...state.events]
+            }
+        case 'TRANSFER_FAIL':
+            return{
+                ...state,
+                transaction: { 
+                    transactionType: 'Transfer',
+                    isPending: false,
+                    isSuccesful: false,
+                    isError: true
+                },
+                transferInProgress: false
+            }
+        default:
+            return state
+    }
+}

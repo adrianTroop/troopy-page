@@ -1,21 +1,13 @@
-//Connect wallet
-    //Press Button
-    //Call your wallet to TransferFrom Wallet 10ETH.
-    // token, user, amount, balance
-    //When your deposit is done your account is added to the Participant DONE
-    //Gets lock for 6h
-    //When time is up the contract draws a random address from the participant array
-    //Allows the person to withdraw the amount minus 5% 
-    //if the person doesnt WD before the next round the next person gets both amounts. 
-    //Times restarts and accept deposit again.
-    // One entry per wallet.
-
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
 import "hardhat/console.sol";
 
-contract LotteryContract{
+contract LotteryContractChainLink{
+    AggregatorV3Interface internal priceFeed;
+
     struct Depositer {
         address userAddress;
         uint256 amount;
@@ -23,8 +15,23 @@ contract LotteryContract{
     Depositer[] public depositersList;
     event Deposit(address indexed user, uint256 amount);
 
+    constructor(address _priceFeed) {
+        priceFeed = AggregatorV3Interface(_priceFeed);
+    }
+    function getLatestPrice() public view returns (int) {
+        (   , //roundID
+            int price,
+            , // startedAt
+            , // timeStamp
+            // answeredInRound
+        ) = priceFeed.latestRoundData();
+        return price;
+    }
+
     function deposit() external payable {
-        require(msg.value > 10);
+        int ethUsdPrice = getLatestPrice();
+        uint256 requiredAmountInWei = (10 * 10**18) / uint256(ethUsdPrice);
+        require(msg.value >= requiredAmountInWei);
         bool isNewDepositer = true;
         //Only 1 entry per wallet
         for (uint256 i = 0; i < depositersList.length; i++) {
