@@ -13,11 +13,13 @@ function App() {
   const dispatch = useDispatch()
   
   const loadBlockChainData = async () => {
-  
     const provider = loadProvider(dispatch)
     const { chainId }  = await loadNetwork(provider, dispatch)
     const account = await loadAccount(provider, dispatch)
-    
+  
+    window.ethereum.on('accountsChanged', () => {
+      loadAccount(provider, dispatch)
+    })
   }
 
   useEffect(()=>{

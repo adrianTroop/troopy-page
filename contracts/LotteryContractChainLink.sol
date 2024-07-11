@@ -31,7 +31,7 @@ contract LotteryContractChainLink{
     function deposit() external payable {
         int ethUsdPrice = getLatestPrice();
         uint256 requiredAmountInWei = (10 * 10**18) / uint256(ethUsdPrice);
-        require(msg.value >= requiredAmountInWei);
+        require(msg.value == requiredAmountInWei);
         bool isNewDepositer = true;
         //Only 1 entry per wallet
         for (uint256 i = 0; i < depositersList.length; i++) {

@@ -1,7 +1,10 @@
+import { useSelector, useDispatch } from "react-redux"
 
 const Lottery = () => {
 
-    const placeLotteryBet = async () => {
+    let isBetplaced = false;
+    const placeLotteryBet = async (e) => {
+        e.preventDefault()
         console.log("Lottery button")
     }
 
@@ -9,7 +12,7 @@ const Lottery = () => {
         <div>
             <div className="App">
             <h1>LOTTOKEN</h1>
-            <p>Connected account: {"account"}</p>
+            {/*<p>Connected account: {"account"}</p>*/}
             <p>Ticket Price: {"ticketPrice"} Ether</p>
                 <button className="token-button" onClick={ placeLotteryBet }>Enter Lottery</button>
                 <p>{"Deposit 10$ in ETH to participate"}</p>
