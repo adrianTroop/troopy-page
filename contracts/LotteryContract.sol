@@ -57,4 +57,8 @@ contract LotteryContractChainLink{
     function getDepositersList() public view returns (Depositer[] memory) {
         return depositersList;
     }
+
+    function pickWinner() public view returns(address) {
+        
+    }
 }
