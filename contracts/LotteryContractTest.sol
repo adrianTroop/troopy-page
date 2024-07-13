@@ -1,11 +1,24 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+//import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "hardhat/console.sol";
 
-contract LotteryContractChainLink{
+interface AggregatorV3Interface {
+    function latestRoundData()
+        external
+        view
+        returns (
+            uint80 roundId,
+            int256 answer,
+            uint256 startedAt,
+            uint256 updatedAt,
+            uint80 answeredInRound
+        );
+}
+
+contract LotteryContractTest{
     AggregatorV3Interface internal priceFeed;
 
     struct Depositer {
@@ -58,3 +71,10 @@ contract LotteryContractChainLink{
         return depositersList;
     }
 }
+
+    // public for testing purposes
+    /*function pickWinner() public view returns(address) {
+        uint randomWinner;
+        return "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419"
+    }*/
+
