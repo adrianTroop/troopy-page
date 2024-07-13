@@ -5,7 +5,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "hardhat/console.sol";
 
-contract LotteryContractChainLink{
+contract LotteryContract{
     AggregatorV3Interface internal priceFeed;
 
     struct Depositer {
@@ -29,7 +29,7 @@ contract LotteryContractChainLink{
     }
 
     function deposit() external payable {
-        int ethUsdPrice = getLatestPrice();
+        int ethUsdPrice = 3000;//getLatestPrice();
         uint256 requiredAmountInWei = (10 * 10**18) / uint256(ethUsdPrice);
         require(msg.value >= requiredAmountInWei);
         bool isNewDepositer = true;

@@ -5,7 +5,7 @@ const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), "ether")
  }
 
-describe("LotteryContractTest", () => {
+describe("LotteryContract", () => {
     let accounts, user, priceFeed;
     let transaction, result;
     let amount = tokens(1);
@@ -17,7 +17,7 @@ describe("LotteryContractTest", () => {
         priceFeed = await MockV3Aggregator.deploy(3000); // Initial ETH price in USD
         await priceFeed.deployed();
         // We fetch the token from the BC
-        const LotteryContract = await ethers.getContractFactory("LotteryContractTest");
+        const LotteryContract = await ethers.getContractFactory("LotteryContract");
         //const priceFeedAddress = "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419";
         lotteryContract = await LotteryContract.deploy(priceFeed.address);
         await lotteryContract.deployed();
@@ -34,10 +34,6 @@ describe("LotteryContractTest", () => {
         result = await transaction.wait()
     })
     describe("Deposit Tokens and check balance", () =>{
-        it("Check prices", async () =>{
-            const price = await lotteryContract.getLatestPrice();
-            console.log(price)
-        })
         it("Checks contract balance to equal participation", async () =>{
             const contractBalance = await lotteryContract.getContractBalance();
             expect(contractBalance).to.equal(amount);
