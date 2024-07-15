@@ -57,4 +57,13 @@ contract LotteryContract{
     function getDepositersList() public view returns (Depositer[] memory) {
         return depositersList;
     }
+    function pickWinner() public view returns (address) {
+        require(depositersList.length > 0, "No depositers in the list");
+
+        uint256 randomIndex = uint256(
+            keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))
+        ) % depositersList.length;
+
+        return depositersList[randomIndex].userAddress;
+    }
 }

@@ -1,9 +1,13 @@
 import { useSelector, useDispatch } from "react-redux"
 
+import ticketPriceFetcher from "./ticketPriceFetcher";
+
 const Lottery = () => {
 
     let isBetplaced = false;
     const placeLotteryBet = async (e) => {
+        transaction = await lotteryContract.connect(user).deposit({ value: amount })
+        result = await transaction.wait()
         e.preventDefault()
         console.log("Lottery button")
     }
@@ -12,10 +16,8 @@ const Lottery = () => {
         <div>
             <div className="App">
             <h1>LOTTOKEN</h1>
-            {/*<p>Connected account: {"account"}</p>*/}
-            <p>Ticket Price: {"ticketPrice"} Ether</p>
+            < ticketPriceFetcher />
                 <button className="token-button" onClick={ placeLotteryBet }>Enter Lottery</button>
-                <p>{"Deposit 10$ in ETH to participate"}</p>
                 <p>{"All the deposit will be drop to the winner every friday"}</p>
                 <p>{"Smart Contract keep 3% of deposits"}</p>
             <h2>Participants</h2>
