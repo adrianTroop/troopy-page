@@ -1,13 +1,13 @@
-import { useSelector, useDispatch } from "react-redux"
+//import { useSelector, useDispatch } from "react-redux"
 
-import ticketPriceFetcher from "./ticketPriceFetcher";
+//import ticketPriceFetcher from "./ticketPriceFetcher";
 
 const Lottery = () => {
 
-    let isBetplaced = false;
+    //let isBetplaced = false;
     const placeLotteryBet = async (e) => {
-        transaction = await lotteryContract.connect(user).deposit({ value: amount })
-        result = await transaction.wait()
+        //transaction = await lotteryContract.connect(user).deposit({ value: amount })
+        //result = await transaction.wait()
         e.preventDefault()
         console.log("Lottery button")
     }

@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "hardhat/console.sol";
+import "./Token.sol";
 
 contract LotteryContract{
     AggregatorV3Interface internal priceFeed;
@@ -61,7 +62,7 @@ contract LotteryContract{
         require(depositersList.length > 0, "No depositers in the list");
 
         uint256 randomIndex = uint256(
-            keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))
+            keccak256(abi.encodePacked(block.timestamp, block.prevrandao, msg.sender))
         ) % depositersList.length;
 
         return depositersList[randomIndex].userAddress;
