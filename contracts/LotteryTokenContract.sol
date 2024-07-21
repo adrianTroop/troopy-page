@@ -23,7 +23,9 @@ contract LotteryTokenContract{
         feePercent = _feePercent;
     }
 
-    function depositToken(address _token, uint256 _amount) public{
+    function depositToken(address _token, uint256 _amount)
+        public
+    {
         require(Token(_token).transferFrom(msg.sender, address(this), _amount));
         if (tokens[_token][msg.sender] == 0) {
             tokenUsers[_token].push(msg.sender); // Add user to tracking if new depositor
@@ -49,5 +51,19 @@ contract LotteryTokenContract{
             total += tokens[_token][users[i]];
             }
         return total;
+    }
+
+    function pickAWinner(address _token) 
+        public
+        view
+        returns (address winner) 
+    {
+        //Picks a random winner
+        address[] memory users = tokenUsers[_token];
+        uint256 randomNum = uint256(
+            keccak256(abi.encodePacked(block.timestamp, block.prevrandao, msg.sender))
+        ) % users.length;
+        winner = users[randomNum];
+        return winner;
     }
 }
