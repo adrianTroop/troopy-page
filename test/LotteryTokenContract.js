@@ -18,16 +18,22 @@ describe("LotteryTokenContract", () => {
         deployer = accounts[0]
         feeAccount = accounts[1]
         user1 = accounts[2]
+        user2 = accounts[3]
+        user3 = accounts[4]
 
-        
+        //Deposit tokens in all the accounts
         let transaction = await token1.connect(deployer).transfer(user1.address,tokens(100))
+        await transaction.wait()
+        transaction = await token1.connect(deployer).transfer(user2.address,tokens(100))
+        await transaction.wait()
+        transaction = await token1.connect(deployer).transfer(user3.address,tokens(100))
         await transaction.wait()
         lotteryToken = await LotteryToken.deploy(feeAccount.address, feePercent)
     })
 
     describe("Deposit Tokens", () =>{
         let transaction, result
-        let amount = tokens(10)
+        let amount = tokens(20)
         describe("Success", () => {
             beforeEach(async ()=> {
                 //Approve Tokens
@@ -51,6 +57,13 @@ describe("LotteryTokenContract", () => {
                 expect(args.user).to.equal(user1.address)
                 expect(args.amount).to.equal(amount)
                 expect(args.balance).to.equal(amount)
+            })
+            it("Returns token balance", async ()=>{
+                expect(await lotteryToken.balanceOf(token1.address, user1.address)).to.equal(amount)
+            })
+            it("Total lottery balance", async ()=>{
+                const totalBalance = await lotteryToken.balanceTotal(token1.address)
+                expect(totalBalance).to.equal(tokens(20));
             })
         })
         describe("Deployment", () =>{

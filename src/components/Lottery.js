@@ -15,11 +15,12 @@ const Lottery = () => {
     return(
         <div>
             <div className="App">
-            <h1>LOTTOKEN</h1>
+            <h1>hi LOTTO</h1>
+            <h2>Pot Balance: 10,000,000 hi</h2>
             < ticketPriceFetcher />
-                <button className="token-button" onClick={ placeLotteryBet }>Enter Lottery</button>
+                <button className="token-button" onClick={ placeLotteryBet }>Coming soon!</button>
                 <p>{"All the deposit will be drop to the winner every friday"}</p>
-                <p>{"Smart Contract keep 3% of deposits"}</p>
+                <p>{"Lottery will keep 3% of deposits"}</p>
             <h2>Participants</h2>
             <ul>
                 <li>Bet Number 1</li>
