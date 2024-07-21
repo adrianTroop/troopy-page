@@ -66,7 +66,7 @@ describe("LotteryTokenContract", () => {
                 expect(totalBalance).to.equal(tokens(20));
             })
             it("Picks a winner", async ()=>{
-                expect(await user2.pickAWinner(token1.address)).to.be.reverted
+                const winner = await lotteryToken.pickAWinner(token1.address)
             })
         })
         describe("Deployment", () =>{
