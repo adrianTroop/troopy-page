@@ -4,16 +4,22 @@ require("dotenv").config();
 async function main() {
     console.log(`Preparing deployment... \n`)
     //fetch contract
-    const Token = await ethers.getContractFactory("LotteryContract")
+    const LotteryContract = await ethers.getContractFactory("LotteryTokenContract")
+    const Token = await ethers.getContractFactory("Token")
 
     const accounts = await ethers.getSigners()
     console.log(`Accounts fetched: \n ${accounts[0].address}\n${accounts[1].address}\n`)
 
     //Deploy contracts
     //Need to add the price Fetcher and change the accounts to be able to use the metamask accounts.
-    const lotteryContract = await Token.deploy("0x694AA1769357215DE4FAC081bf1f309aDC325306")
+    const lotteryContract = await LotteryContract.deploy(accounts[1].address,3)
     await lotteryContract.deployed()
     console.log(`LotteryContract Deployed to: ${lotteryContract.address}`)
+
+    const mhi = await Token.deploy("Mock hi", "mhi",10000000)
+    await mhi.deployed()
+    console.log(`Mock hi Deployed to: ${mhi.address}`)
+
 }
 
 main()

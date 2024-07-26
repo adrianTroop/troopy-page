@@ -1,4 +1,6 @@
 import { ethers } from 'ethers'
+import TOKEN_ABI from '../abis/Token.json'
+import LOTTERY_ABI from '../abis/LotteryTokenContract.json'
 
 export const loadProvider = (dispatch) => {
     //connecting ethers to the BC
@@ -28,4 +30,15 @@ export const loadAccount = async (provider, dispatch) => {
     dispatch({ type : 'ETHER_BALANCE_LOADED', balance})
 
     return account
+}
+
+export const loadTokens = async (provider, addresses, dispatch) => {
+    let token, symbol
+    token = new ethers.Contract(addresses[0], TOKEN_ABI, provider)
+    console.log(token)
+    symbol = await token.symbol()
+    console.log(symbol)
+    dispatch({type: 'TOKEN_1_LOADED', token, symbol})
+
+    return token
 }

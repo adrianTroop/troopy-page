@@ -29,6 +29,31 @@ export const provider = (state = {} , action) =>{
             return state 
     }
 }
+const DEFAULT_TOKENS_STATE = {
+    loaded: false,
+    contracts:[],
+    symbols: [] 
+}
+//handles all the changes with Tokens
+export const tokens = (state = DEFAULT_TOKENS_STATE , action) =>{
+    switch(action.type){
+        case 'TOKEN_1_LOADED':
+            return{
+                ...state,
+                loaded:true,
+                contracts: [action.token],
+                symbols: [action.symbol]
+            } 
+        case 'TOKEN_1_BALANCE_LOADED':
+            return{
+                ...state,
+                //Override current balance
+                balances: [action.balance]
+            }
+        default:
+            return state
+        }
+}
 
 export const lotteryContract = (state = {}, action) => {
     switch(action.type){
